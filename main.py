@@ -1,5 +1,6 @@
 import requests
 import sys
+import time
 from tqdm import tqdm
 
 
@@ -29,6 +30,7 @@ found_dir=0
 with open("list.txt","r") as file:
    lines=file.readlines()
 
+start=time.perf_counter()            #__starts timer__
    for dir in tqdm(lines, desc="Scanning url",total=len(lines)):
         new_url=url + dir.strip()
         try:
@@ -41,5 +43,6 @@ with open("list.txt","r") as file:
         except requests.exceptions.RequestException as e:
             print("\nError fetching website")
             break
-
+end=time.perf_counter()            #__Stops timer__
 print(Yellow + str(found_dir) + " url found" + Reset)
+print(f"Time taken : {end-start:.2f} seconds)
