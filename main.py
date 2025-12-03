@@ -25,12 +25,14 @@ print("""
        """)
 
 url=check_url()
-
+start=time.perf_counter() #__starts timer__
 found_dir=0
+
+#__Read directory file__
 with open("list.txt","r") as file:
    lines=file.readlines()
 
-start=time.perf_counter()            #__starts timer__
+#__Scan URL__
 for dir in tqdm(lines, desc="Scanning url",total=len(lines)):
     new_url=url + dir.strip()
     try:
@@ -41,8 +43,9 @@ for dir in tqdm(lines, desc="Scanning url",total=len(lines)):
         else:
             tqdm.write(Red + new_url + Reset)
     except requests.exceptions.RequestException as e:
-        print("\nError fetching website")
-        break
-end=time.perf_counter()            #__Stops timer__
+        print(Red+"\nError fetching website"+Reset)
+        sys.exit()
+    
+end=time.perf_counter()  #__ends timer__
 print(Yellow + str(found_dir) + " url found" + Reset)
-print(f"Time taken : {end-start:.2f} seconds")
+print(f"Time taken: {end-start:.2f} seconds") 
