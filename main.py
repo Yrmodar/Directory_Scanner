@@ -45,4 +45,4 @@ for dir in tqdm(lines, desc="Scanning url",total=len(lines)):
         break
 end=time.perf_counter()            #__Stops timer__
 print(Yellow + str(found_dir) + " url found" + Reset)
-print(f"Time taken : {end-start:.2f} seconds)
+print(f"Time taken : {end-start:.2f} seconds")
