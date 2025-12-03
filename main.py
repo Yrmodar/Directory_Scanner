@@ -31,18 +31,18 @@ with open("list.txt","r") as file:
    lines=file.readlines()
 
 start=time.perf_counter()            #__starts timer__
-   for dir in tqdm(lines, desc="Scanning url",total=len(lines)):
-        new_url=url + dir.strip()
-        try:
-            respond=requests.get(new_url)
-            if 200<=respond.status_code<300:
-                found_dir+=1
-                tqdm.write(Green + new_url + Reset)
-            else:
-                tqdm.write(Red + new_url + Reset)
-        except requests.exceptions.RequestException as e:
-            print("\nError fetching website")
-            break
+for dir in tqdm(lines, desc="Scanning url",total=len(lines)):
+    new_url=url + dir.strip()
+    try:
+        respond=requests.get(new_url)
+        if 200<=respond.status_code<300:
+            found_dir+=1
+            tqdm.write(Green + new_url + Reset)
+        else:
+            tqdm.write(Red + new_url + Reset)
+    except requests.exceptions.RequestException as e:
+        print("\nError fetching website")
+        break
 end=time.perf_counter()            #__Stops timer__
 print(Yellow + str(found_dir) + " url found" + Reset)
 print(f"Time taken : {end-start:.2f} seconds)
